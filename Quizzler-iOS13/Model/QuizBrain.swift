@@ -34,8 +34,14 @@ struct QuizBrain {
         } else { return false }
     }
     
-    func getQuestionText() -> String {
-        return quiz[questionNumber].question
+    mutating func getQuestionText() -> String {
+        var text = ""
+        if questionNumber < quiz.count - 1 {
+        text = quiz[questionNumber].question
+        } else {
+            text = "Game finished your score is: \(score)"
+        }
+        return text
     }
     
     func getAnswers() -> [String] {
@@ -47,12 +53,9 @@ struct QuizBrain {
         return progress
     }
     
-    mutating func nextQuestion() {
+    mutating func nextQuestion(){
         if questionNumber < quiz.count - 1 {
             questionNumber += 1
-        } else {
-            questionNumber = 0
-            score = 0
         }
     }
     
@@ -60,4 +63,3 @@ struct QuizBrain {
         return score
     }
 }
-
