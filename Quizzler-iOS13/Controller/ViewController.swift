@@ -12,8 +12,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var Button1Label: UIButton!
+    @IBOutlet weak var Button2Label: UIButton!
+    @IBOutlet weak var Button3Label: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
     
     var quizBrain = QuizBrain()
@@ -32,8 +33,7 @@ class ViewController: UIViewController {
         if currentAnswer {
             sender.backgroundColor = .green
             sender.layer.cornerRadius = sender.frame.height / 4
-        }
-        else {
+        } else {
             sender.backgroundColor = .red
             sender.layer.cornerRadius = sender.frame.height / 4
         }
@@ -41,17 +41,21 @@ class ViewController: UIViewController {
         quizBrain.nextQuestion()
         
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
-        
-        
     }
     
     @objc func updateUI() {
+        let buttonAnswer = quizBrain.getAnswers()
+        Button1Label.setTitle(buttonAnswer[0], for: .normal)
+        Button2Label.setTitle(buttonAnswer[1], for: .normal)
+        Button3Label.setTitle(buttonAnswer[2], for: .normal)
         questionLabel.text = quizBrain.getQuestionText()
         progressBar.progress = quizBrain.getProgress()
         scoreLabel.text = "Your score is \(quizBrain.getScore())"
         
-        trueButton.backgroundColor = .clear
-        falseButton.backgroundColor = .clear
+        
+        Button1Label.backgroundColor = .clear
+        Button2Label.backgroundColor = .clear
+        Button3Label.backgroundColor = .clear
         
     }
     
